@@ -18,55 +18,65 @@ class Program
 
         do
         {
-            Menu();
-            input = Console.ReadLine();
+        Menu();
+        input = Console.ReadLine();
 
-            switch (input)
-            {
-                case "0":
-                    Console.WriteLine("Saindo...");
-                    break;
-                case "1":
-                    CriarUsuario();
-                    break;
-                case "2":
-                    CriarRepositorio();
-                    break;
-                case "3":
-                    CriarBranch();
-                    break;
-                case "4":
-                    CriarCommit();
-                    break;
-                case "5":
-                    CriarPullRequest();
-                    break;
-                case "6":
-                    CriarIssue();
-                    break;
-                case "7":
-                    VincularUsuarioRepositorio();
-                    break;
-                case "8":
-                    AdicionarReviewerPullRequest();
-                    break;
-                case "9":
-                    ResetarEstadoBanco();
-                    break;
-                case "10":
-                    LimparBancoEInserirDadosFicticios();
-                    break;
-                default:
-                    Console.WriteLine("Opção inválida!");
-                    break;
-            }
+        bool existemTabelas = ExistemTabelasNoBanco();
 
+        if (!existemTabelas && input != "0" && input != "9" && input != "10")
+        {
+            Console.WriteLine("Não existem tabelas no banco. Gere as tabelas (opção 9 ou 10) antes de usar as opções 1-8.");
             Console.WriteLine("\nPressione qualquer tecla para continuar...");
             Console.ReadKey();
             Console.Clear();
+            continue;
+        }
+
+        switch (input)
+        {
+            case "0":
+                Console.WriteLine("Saindo...");
+                break;
+            case "1":
+                CriarUsuario();
+                break;
+            case "2":
+                CriarRepositorio();
+                break;
+            case "3":
+                CriarBranch();
+                break;
+            case "4":
+                CriarCommit();
+                break;
+            case "5":
+                CriarPullRequest();
+                break;
+            case "6":
+                CriarIssue();
+                break;
+            case "7":
+                VincularUsuarioRepositorio();
+                break;
+            case "8":
+                AdicionarReviewerPullRequest();
+                break;
+            case "9":
+                ResetarEstadoBanco();
+                break;
+            case "10":
+                LimparBancoEInserirDadosFicticios();
+                break;
+            default:
+                Console.WriteLine("Opção inválida!");
+                break;
+        }
+
+        Console.WriteLine("\nPressione qualquer tecla para continuar...");
+        Console.ReadKey();
+        Console.Clear();
         }
         while (input != "0");
-
 
         connection.Close();
     }
